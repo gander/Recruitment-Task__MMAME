@@ -9,5 +9,5 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
-/compose.override.yaml
+/compose.override.yml
 /test.sql

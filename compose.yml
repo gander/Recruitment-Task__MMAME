@@ -1,6 +1,6 @@
-
 services:
   frankenphp:
+    container_name: recruitment-task-mmame-web
     build:
       context: .
       dockerfile_inline: |
@@ -8,27 +8,33 @@ services:
         RUN install-php-extensions pdo_mysql zip
         COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
     environment:
+      SERVER_NAME: ':8080'
       FRANKENPHP_CONFIG: "worker ./public/index.php"
       APP_RUNTIME: "Runtime\\FrankenPhpSymfony\\Runtime"
     volumes:
       - .:/app
     ports:
-      - '80:80'
-      - '443:443'
-      - '443:443/udp'
+      - '8080:8080'
+    depends_on:
+      database:
+        condition: service_healthy
 
 ###> doctrine/doctrine-bundle ###
   database:
+    container_name: recruitment-task-mmame-db
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: test
       MYSQL_DATABASE: test
       MYSQL_USER: test
       MYSQL_PASSWORD: test
-    ports:
-      - '3306:3306'
     volumes:
       - database_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ptest"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
     command:
       - --default-authentication-plugin=mysql_native_password
       - --character-set-server=utf8mb4
