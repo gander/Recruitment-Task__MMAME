@@ -11,3 +11,4 @@
 ###< symfony/framework-bundle ###
 /compose.override.yml
 /test.sql
+/config/reference.php
