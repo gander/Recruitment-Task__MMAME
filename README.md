@@ -1,68 +1,53 @@
-# Test Environment Setup Guide
+# Recruitment Task: MMAME
 
-This document explains how to set up and run the test environment for this Symfony 7.3.0 application.
+[![CI](https://github.com/gander/Recruitment-Task__MMAME/actions/workflows/ci.yml/badge.svg)](https://github.com/gander/Recruitment-Task__MMAME/actions/workflows/ci.yml)
 
-## Prerequisites
+Zadanie: aplikacja w Symfony wyświetlająca listę umów (`contracts`) z bazy MySQL. Strona główna filtruje i sortuje rekordy na podstawie parametrów `akcja`, `sort` i `i` w adresie URL, a wynik renderuje w szablonie Twig. Schemat bazy i dane przykładowe tworzą migracje Doctrine.
 
-- Docker and Docker Compose installed on your machine
-- Git to clone the repository
+## Requirements
 
-## Setup Instructions
+- Docker Engine z Docker Compose v2 (jedyna zależność; PHP ani Composer na hoście nie są potrzebne).
+- `curl` do przykładów użycia.
 
-### 1. Install dependencies
-
-To install PHP dependencies, run Composer in a one-off FrankenPHP container:
+## Install
 
 ```bash
 docker compose run --rm frankenphp composer install
-```
-
-### 2. Start the Docker environment
-
-The project uses Docker Compose to run MySQL and FrankenPHP. To start the environment, run the following command in the project root directory:
-
-```bash
-docker compose up -d
-```
-
-This will start two containers:
-- FrankenPHP (web server with PHP 8.2)
-- MySQL 8.0 (database server)
-
-### 3. Run database migrations
-
-To create the database schema, run the migrations inside the FrankenPHP container:
-
-```bash
+docker compose up --build -d --wait
 docker compose exec frankenphp php bin/console doctrine:migrations:migrate --no-interaction
 ```
 
-### 4. Access the application
+## Usage
 
-The application should now be accessible at:
-- http://localhost (HTTP)
-- https://localhost (HTTPS)
+Aplikacja: <http://localhost:8080> (np. <http://localhost:8080/?akcja=5&sort=1&i=1>).
 
-## Additional Commands
+## Test
 
-### Checking Symfony container
-
-To debug the Symfony container:
+Po kroku Install:
 
 ```bash
-docker compose exec frankenphp php bin/console debug:container
+docker compose exec frankenphp php bin/console lint:container
 ```
 
-## Stopping the environment
+Projekt nie zawiera testów PHPUnit; CI uruchamia `composer validate`, `composer audit` (oba nieblokujące, bo lockfile jest nieaktualny) i `docker compose config`.
 
-To stop the Docker containers:
+## Override
+
+Lokalne zmiany (np. inny port) trzymaj w `compose.override.yml`, który jest ignorowany przez git:
 
 ```bash
-docker compose down
+cat > compose.override.yml <<'OVERRIDE'
+services:
+  frankenphp:
+    ports: !override
+      - '8081:8080'
+OVERRIDE
+docker compose up -d
 ```
 
-To stop and remove volumes (this will delete the database data):
+## Cleanup
 
 ```bash
-docker compose down -v
+docker compose down -v --rmi local --remove-orphans
+rm -f compose.override.yml
 ```
