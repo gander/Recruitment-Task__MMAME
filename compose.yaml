@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile_inline: |
         FROM dunglas/frankenphp
-        RUN install-php-extensions pdo_mysql
+        RUN install-php-extensions pdo_mysql zip
         COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
     environment:
       FRANKENPHP_CONFIG: "worker ./public/index.php"
