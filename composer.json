@@ -10,7 +10,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/dbal": "^4",
-        "doctrine/doctrine-bundle": "^2.14",
+        "doctrine/doctrine-bundle": "^3.0",
         "doctrine/doctrine-migrations-bundle": "^3.4",
         "doctrine/orm": "^3.4",
         "loophp/psr-http-message-bridge-bundle": "^1.2",
