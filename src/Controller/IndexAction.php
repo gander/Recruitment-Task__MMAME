@@ -19,8 +19,7 @@ final class IndexAction
         ResponseFactoryInterface $responseFactory,
         DbalConnection           $connection,
         Templating               $twig,
-    ): ResponseInterface
-    {
+    ): ResponseInterface {
         // Get query parameters and apply type casting
         $params = $request->getQueryParams();
         $action = isset($params['akcja']) ? (int)$params['akcja'] : null;
@@ -83,7 +82,7 @@ final class IndexAction
         }
 
         // Limit data passed to the template for security
-        return array_map(static fn(array $record) => [$record[0], $record[2]], $records);
+        return array_map(static fn (array $record) => [$record[0], $record[2]], $records);
     }
 
     /**
@@ -93,8 +92,7 @@ final class IndexAction
         ResponseFactoryInterface $responseFactory,
         Templating $twig,
         array $records
-    ): ResponseInterface
-    {
+    ): ResponseInterface {
         $html = $twig->render('index.html.twig', ['records' => $records]);
 
         return $responseFactory
