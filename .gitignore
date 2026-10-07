@@ -12,3 +12,8 @@
 /compose.override.yml
 /test.sql
 /config/reference.php
+
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###

@@ -30,6 +30,7 @@ jobs:
           tools: composer:v2
       - run: composer install --no-interaction --no-progress --no-scripts
       - run: composer check
+      - run: vendor/bin/phpunit
 
   outdated:
     runs-on: ubuntu-latest

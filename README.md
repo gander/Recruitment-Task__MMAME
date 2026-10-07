@@ -29,7 +29,13 @@ After the Install step:
 docker compose exec frankenphp php bin/console lint:container
 ```
 
-The project has no PHPUnit tests; CI runs `composer validate`, `composer audit` (both non-blocking because the lock file is outdated) and `docker compose config`.
+Unit tests (PHPUnit) cover the `IndexAction` controller (query building from the URL parameters and rendering):
+
+```bash
+docker compose run --rm --no-deps frankenphp vendor/bin/phpunit
+```
+
+CI additionally runs `composer validate`, `composer audit` (both non-blocking because the lock file is outdated), `docker compose config`, Rector and ECS.
 
 ## Override
 
