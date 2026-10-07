@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/gander/Recruitment-Task__MMAME/actions/workflows/ci.yml/badge.svg)](https://github.com/gander/Recruitment-Task__MMAME/actions/workflows/ci.yml)
 
-Task: a Symfony application that lists contracts (`contracts`) from a MySQL database. The home page filters and sorts the records based on the `akcja`, `sort` and `i` URL parameters and renders the result in a Twig template. Doctrine migrations create the database schema and the sample data.
+Task: a Symfony application that lists contracts (`contracts`) from a SQLite database. The home page filters and sorts the records based on the `akcja`, `sort` and `i` URL parameters and renders the result in a Twig template. Doctrine migrations create the database schema and the sample data.
 
 ## Requirements
 

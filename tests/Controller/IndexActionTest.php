@@ -6,7 +6,7 @@ namespace App\Tests\Controller;
 
 use App\Controller\IndexAction;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Platforms\MySQLPlatform;
+use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Result;
 use Nyholm\Psr7\Factory\Psr17Factory;
@@ -95,7 +95,7 @@ final class IndexActionTest extends TestCase
         $result->method('fetchAllNumeric')->willReturn($rows);
 
         $connection = $this->createStub(Connection::class);
-        $connection->method('getDatabasePlatform')->willReturn(new MySQLPlatform());
+        $connection->method('getDatabasePlatform')->willReturn(new SQLitePlatform());
         $connection->method('createQueryBuilder')->willReturnCallback(static fn (): QueryBuilder => new QueryBuilder($connection));
         $connection->method('executeQuery')->willReturnCallback(
             static function (string $executedSql, array $executedParams = []) use ($result, &$sql, &$params): Result {
