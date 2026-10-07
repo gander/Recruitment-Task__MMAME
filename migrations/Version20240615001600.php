@@ -54,6 +54,6 @@ final class Version20240615001600 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // Remove all data from the contracts table
-        $this->connection->executeStatement('TRUNCATE TABLE contracts');
+        $this->connection->executeStatement('DELETE FROM contracts');
     }
 }

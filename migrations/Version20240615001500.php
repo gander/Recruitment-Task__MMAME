@@ -21,7 +21,7 @@ final class Version20240615001500 extends AbstractMigration
     {
         // Create the contracts table
         $this->addSql('CREATE TABLE contracts (
-            id INT AUTO_INCREMENT NOT NULL,
+            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             column1 VARCHAR(255) DEFAULT NULL,
             nazwa_przedsiebiorcy VARCHAR(255) NOT NULL,
             column3 VARCHAR(255) DEFAULT NULL,
@@ -31,9 +31,8 @@ final class Version20240615001500 extends AbstractMigration
             column7 VARCHAR(255) DEFAULT NULL,
             column8 VARCHAR(255) DEFAULT NULL,
             column9 VARCHAR(255) DEFAULT NULL,
-            kwota DECIMAL(10, 2) NOT NULL CHECK (kwota BETWEEN 1 AND 20),
-            PRIMARY KEY(id)
-        ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+            kwota NUMERIC(10, 2) NOT NULL CHECK (kwota BETWEEN 1 AND 20)
+        )');
 
         // Insert sample data
         $this->addSql("INSERT INTO contracts (column1, nazwa_przedsiebiorcy, column3, nip, column5, column6, column7, column8, column9, kwota) VALUES
