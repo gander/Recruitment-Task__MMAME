@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile_inline: |
-        FROM dunglas/frankenphp
+        FROM dunglas/frankenphp:php8.4
         RUN install-php-extensions pdo_mysql zip
         COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
     environment:
