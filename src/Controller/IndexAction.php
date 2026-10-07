@@ -75,7 +75,7 @@ final class IndexAction
         if ($action === 5) {
             $records = array_map(static function (array $record) {
                 if ($record[10] > 5) {
-                    $record[2] = sprintf('%s %s', $record[2], $record[10]);
+                    $record[2] = sprintf('%s %s', $record[2], number_format((float) $record[10], 2, '.', ''));
                 }
                 return $record;
             }, $records);
