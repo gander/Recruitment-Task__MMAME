@@ -71,6 +71,14 @@ final class IndexActionTest extends TestCase
         self::assertStringContainsString('<td>JKL Consulting</td>', $html);
     }
 
+    public function testAction5KeepsTwoDecimalsForFloatAmounts(): void
+    {
+        // SQLite returns DECIMAL columns as float, so 6.80 arrives as 6.8.
+        $html = (string) $this->invoke(['akcja' => '5', 'i' => '6'], [self::row(6, 'MNO Services', 6.8)])->getBody();
+
+        self::assertStringContainsString('<td>MNO Services 6.80</td>', $html);
+    }
+
     public function testNameIsEscaped(): void
     {
         $html = (string) $this->invoke([], [self::row(1, '<script>x</script>', '1.00')])->getBody();
@@ -80,7 +88,7 @@ final class IndexActionTest extends TestCase
     }
 
     /** @return list<mixed> a `contracts` row as returned by fetchAllNumeric() */
-    private static function row(int $id, string $name, string $amount): array
+    private static function row(int $id, string $name, string|float $amount): array
     {
         return [$id, 'REF', $name, 'Typ', '1234567890', 'Aktywny', 'Miasto', '2024-01-01', 'Osoba', 'Status', $amount];
     }
