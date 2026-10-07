@@ -1,11 +1,4 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": ["github>gander-settings/renovate:automerge"],
-    "packageRules": [
-        {
-            "description": "Hold Symfony 8: runtime/frankenphp-symfony 1.0.0 supports only Symfony <=7 (upstream PR php-runtime/frankenphp-symfony#11)",
-            "matchPackageNames": ["symfony/*"],
-            "allowedVersions": "<8"
-        }
-    ]
+    "extends": ["github>gander-settings/renovate:automerge"]
 }
