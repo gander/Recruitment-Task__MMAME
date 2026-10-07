@@ -16,25 +16,47 @@ docker compose up --build -d --wait
 docker compose exec app php bin/console doctrine:migrations:migrate --no-interaction
 ```
 
+The migrations create the `contracts` table and its 30 sample rows.
+
 ## Usage
 
-Application: <http://localhost:8080> (e.g. <http://localhost:8080/?akcja=5&sort=1&i=1>).
+Application: <http://localhost:8080>.
+
+- Without parameters the page lists all 30 contracts (`id` and name) ordered by `id`.
+- With `akcja=5` only contracts with an amount above 10 and `id` equal to `i` are listed, sorted by `sort` (`1`: name and NIP, `2`: amount descending); names of contracts above 5 get the amount appended with two decimals.
+
+```bash
+curl 'http://localhost:8080/?akcja=5&sort=1&i=4'
+```
+
+Expected response, status 200, a table with one row:
+
+```html
+<td>4</td>
+<td>GHI Trading 15.99</td>
+```
 
 ## Test
 
-After the Install step:
+Run the whole test suite (PHPUnit) in Docker:
+
+```bash
+docker compose run --rm --build --no-deps app composer test
+```
+
+Run the quality checks (Rector dry run and ECS), which CI runs too:
+
+```bash
+docker compose run --rm --build --no-deps app composer check
+```
+
+Check the container (needs the running application, see Install):
 
 ```bash
 docker compose exec app php bin/console lint:container
 ```
 
-Unit tests (PHPUnit) cover the `IndexAction` controller (query building from the URL parameters and rendering):
-
-```bash
-docker compose run --rm --no-deps app vendor/bin/phpunit
-```
-
-CI additionally runs `composer validate`, `composer audit` (both non-blocking because the lock file is outdated), `docker compose config`, Rector and ECS.
+CI (`.github/workflows/ci.yml`) runs the jobs `checks` (`composer validate`, `composer audit`, `docker compose config`), `quality`, `tests` (PHP 8.4, plus a non-blocking PHP 8.5 run), `outdated` and `smoke` (builds the image and replays the requests from Usage). Optional pre-commit hooks that run Rector, ECS and `swiss-knife breakpoint` in Docker: `lefthook install`.
 
 ## Override
 
