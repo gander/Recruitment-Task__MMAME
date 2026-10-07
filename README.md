@@ -12,9 +12,8 @@ Task: a Symfony application that lists contracts (`contracts`) from a MySQL data
 ## Install
 
 ```bash
-docker compose run --rm frankenphp composer install
 docker compose up --build -d --wait
-docker compose exec frankenphp php bin/console doctrine:migrations:migrate --no-interaction
+docker compose exec app php bin/console doctrine:migrations:migrate --no-interaction
 ```
 
 ## Usage
@@ -26,13 +25,13 @@ Application: <http://localhost:8080> (e.g. <http://localhost:8080/?akcja=5&sort=
 After the Install step:
 
 ```bash
-docker compose exec frankenphp php bin/console lint:container
+docker compose exec app php bin/console lint:container
 ```
 
 Unit tests (PHPUnit) cover the `IndexAction` controller (query building from the URL parameters and rendering):
 
 ```bash
-docker compose run --rm --no-deps frankenphp vendor/bin/phpunit
+docker compose run --rm --no-deps app vendor/bin/phpunit
 ```
 
 CI additionally runs `composer validate`, `composer audit` (both non-blocking because the lock file is outdated), `docker compose config`, Rector and ECS.
@@ -44,7 +43,7 @@ Keep local changes (e.g. a different port) in `compose.override.yml`, which is i
 ```bash
 cat > compose.override.yml <<'OVERRIDE'
 services:
-  frankenphp:
+  app:
     ports: !override
       - '8081:8080'
 OVERRIDE
