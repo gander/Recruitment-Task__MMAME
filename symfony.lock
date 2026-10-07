@@ -50,6 +50,9 @@
             "config/packages/nyholm_psr7.yaml"
         ]
     },
+    "phpstan/phpstan": {
+        "version": "2.3.0"
+    },
     "symfony/console": {
         "version": "7.3",
         "recipe": {

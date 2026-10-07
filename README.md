@@ -2,12 +2,12 @@
 
 [![CI](https://github.com/gander/Recruitment-Task__MMAME/actions/workflows/ci.yml/badge.svg)](https://github.com/gander/Recruitment-Task__MMAME/actions/workflows/ci.yml)
 
-Zadanie: aplikacja w Symfony wyświetlająca listę umów (`contracts`) z bazy MySQL. Strona główna filtruje i sortuje rekordy na podstawie parametrów `akcja`, `sort` i `i` w adresie URL, a wynik renderuje w szablonie Twig. Schemat bazy i dane przykładowe tworzą migracje Doctrine.
+Task: a Symfony application that lists contracts (`contracts`) from a MySQL database. The home page filters and sorts the records based on the `akcja`, `sort` and `i` URL parameters and renders the result in a Twig template. Doctrine migrations create the database schema and the sample data.
 
 ## Requirements
 
-- Docker Engine z Docker Compose v2 (jedyna zależność; PHP ani Composer na hoście nie są potrzebne).
-- `curl` do przykładów użycia.
+- Docker Engine with Docker Compose v2 (the only dependency; neither PHP nor Composer is needed on the host).
+- `curl` for the usage examples.
 
 ## Install
 
@@ -19,21 +19,21 @@ docker compose exec frankenphp php bin/console doctrine:migrations:migrate --no-
 
 ## Usage
 
-Aplikacja: <http://localhost:8080> (np. <http://localhost:8080/?akcja=5&sort=1&i=1>).
+Application: <http://localhost:8080> (e.g. <http://localhost:8080/?akcja=5&sort=1&i=1>).
 
 ## Test
 
-Po kroku Install:
+After the Install step:
 
 ```bash
 docker compose exec frankenphp php bin/console lint:container
 ```
 
-Projekt nie zawiera testów PHPUnit; CI uruchamia `composer validate`, `composer audit` (oba nieblokujące, bo lockfile jest nieaktualny) i `docker compose config`.
+The project has no PHPUnit tests; CI runs `composer validate`, `composer audit` (both non-blocking because the lock file is outdated) and `docker compose config`.
 
 ## Override
 
-Lokalne zmiany (np. inny port) trzymaj w `compose.override.yml`, który jest ignorowany przez git:
+Keep local changes (e.g. a different port) in `compose.override.yml`, which is ignored by git:
 
 ```bash
 cat > compose.override.yml <<'OVERRIDE'
