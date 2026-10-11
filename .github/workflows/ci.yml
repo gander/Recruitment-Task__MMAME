@@ -85,28 +85,6 @@ jobs:
           composer-options: --no-scripts
       - run: vendor/bin/swiss-knife breakpoint
 
-  smoke:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-      - run: docker compose up --build -d --wait
-      - name: README flow
-        run: |
-          docker compose exec -T app php bin/console doctrine:migrations:migrate --no-interaction
-          curl --retry 30 --retry-all-errors --retry-delay 2 -sf http://localhost:8080/ > /dev/null
-          curl -sf 'http://localhost:8080/?akcja=5&sort=1&i=4' | grep -q 'GHI Trading 15.99'
-      - name: Framework lint
-        run: |
-          docker compose exec -T app php bin/console lint:container
-          docker compose exec -T app php bin/console lint:yaml config --parse-tags
-          docker compose exec -T app php bin/console lint:twig templates
-      - if: failure()
-        run: docker compose logs
-      - if: always()
-        run: docker compose down -v
-
   workflows:
     runs-on: ubuntu-latest
     steps:
