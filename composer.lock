@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64ee0e794c6f1f5cf6ce976de57480a4",
+    "content-hash": "20d87f527aacaa1455547152502e7ecf",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -5147,8 +5147,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-24T11:36:00+00:00",
-            "published-time": "2026-10-24T11:36:12+00:00"
+            "time": "2026-10-24T11:36:00+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -5680,8 +5679,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-26T13:03:01+00:00",
-            "published-time": "2026-10-26T13:03:13+00:00"
+            "time": "2026-10-26T13:03:01+00:00"
         },
         {
             "name": "rector/swiss-knife",
@@ -7246,8 +7244,7 @@
                 "issues": "https://github.com/ecsphp/ecs/issues",
                 "source": "https://github.com/ecsphp/ecs/tree/13.3.11"
             },
-            "time": "2026-10-26T13:16:42+00:00",
-            "published-time": "2026-10-26T13:16:49+00:00"
+            "time": "2026-10-26T13:16:42+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -7314,5 +7311,5 @@
     "platform-overrides": {
         "php": "8.4.26"
     },
-    "plugin-api-version": "2.11.0"
+    "plugin-api-version": "2.9.0"
 }
