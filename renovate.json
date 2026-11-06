@@ -6,6 +6,11 @@
             "description": "Stay on the Symfony 8.x line: a major hop (9.x) is a planned upgrade, not an automatic update",
             "matchPackageNames": ["symfony/*"],
             "allowedVersions": "<9"
+        },
+        {
+            "description": "Commit bumped composer.json constraints together with composer.lock: composer.json uses bump-after-update, so a lock-only update leaves a content-hash that does not match composer.json",
+            "matchManagers": ["composer"],
+            "rangeStrategy": "bump"
         }
     ]
 }
