@@ -31,7 +31,6 @@
             "symfony/flex": true,
             "symfony/runtime": true
         },
-        "bump-after-update": true,
         "platform": {
             "php": "8.4.26"
         },
